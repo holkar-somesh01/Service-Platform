@@ -34,3 +34,10 @@ exports.FetchBookingHistory = asyncHandler(async (req, res) => {
     const result = await Booking.find({ profetion: req.user }).sort({ updatedAt: -1 }).populate("profetion").populate("customer")
     res.json({ message: "Booking Fetch  Sucess", result })
 })
+
+exports.updateBookingRequest = asyncHandler(async (req, res) => {
+    const { id } = req.params
+    const { isAccept } = req.body
+    await Booking.findByIdAndUpdate(id, { isAccept })
+    res.json({ message: "Booking Request Update Success" })
+})
